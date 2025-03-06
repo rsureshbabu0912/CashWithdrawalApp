@@ -19,12 +19,6 @@ public class Denomination {
 
     private int tens = 10;
 
-    private static final int FIVE_HUNDRED = 500;
-    private static final int TWO_HUNDRED = 200;
-    private static final int ONE_HUNDRED = 100;
-    private static final int TEN = 10;
-
-
     public int getFiveHundreds() {
         return fiveHundreds;
     }
