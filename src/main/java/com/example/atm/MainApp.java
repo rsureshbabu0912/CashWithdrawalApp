@@ -19,7 +19,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        CashWithdrawService cashWithdrawServiceImpl = new CashWithdrawServiceImpl();
+        CashWithdrawService cashWithdrawService = new CashWithdrawServiceImpl();
 
 
         try (Scanner in = new Scanner(System.in)) {
@@ -27,7 +27,7 @@ public class MainApp {
                 System.out.println("Enter amount to withdraw. Amount Max limit is 25000 and denomination should be multiple of 10:");
                 int amount = in.nextInt();
 
-                if (cashWithdrawServiceImpl.doCashWithdraw(amount)) {
+                if (cashWithdrawService.doCashWithdraw(amount)) {
                     System.out.println("Withdrawal Success");
 
                 } else {
