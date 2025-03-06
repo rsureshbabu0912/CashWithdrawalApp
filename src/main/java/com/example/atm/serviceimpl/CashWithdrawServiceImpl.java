@@ -15,6 +15,8 @@ import static com.example.atm.utils.CashWithdrawUtility.DENOMINATION_NOTES;
  * Main Implementation class performing cash Withdrawal and updating the denomination total remaining summary
  * It contains methods to check for max limit to withdraw and whether valid denomination is passed in input amount.
  * Also checks against total remaining balance before each cash withdrawal
+ *
+ * Note-Please refer the corresponding Junit written to test for concurrent users
  */
 public class CashWithdrawServiceImpl implements CashWithdrawService {
     private static final Logger LOGGER = Logger.getLogger(CashWithdrawServiceImpl.class.getName());

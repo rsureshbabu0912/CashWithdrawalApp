@@ -87,6 +87,22 @@ class CashWithdrawServiceImplTest {
         assertEquals(5, cashWithdrawService.getDenomination().getTens());
 
     }
+    /**
+     * Checks for concurrent  users test
+     */
+
+    @Test
+    void verifyCashWithdrawWithMultipleUsers() throws Exception{
+        Thread user1 = new Thread(() -> cashWithdrawService.doCashWithdraw(1000));
+        Thread user2 = new Thread(() -> cashWithdrawService.doCashWithdraw(12000));
+        Thread user3 = new Thread(() -> cashWithdrawService.doCashWithdraw(200));
+        user1.start();
+        user2.start();
+        user3.start();
+        //Giving enough time to Threads to finish
+        Thread.sleep(15000);
+        assertEquals(16900, cashWithdrawService.getDenomination().getTotalRemainingAmount());
+    }
 
 
     @AfterEach
