@@ -1,5 +1,6 @@
 package com.example.atm;
 
+import com.example.atm.service.CashWithdrawService;
 import com.example.atm.serviceimpl.CashWithdrawServiceImpl;
 
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        CashWithdrawServiceImpl cashWithdrawServiceImpl = new CashWithdrawServiceImpl();
+        CashWithdrawService cashWithdrawServiceImpl = new CashWithdrawServiceImpl();
 
 
         try (Scanner in = new Scanner(System.in)) {

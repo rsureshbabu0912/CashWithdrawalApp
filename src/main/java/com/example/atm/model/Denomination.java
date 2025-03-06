@@ -59,8 +59,8 @@ public class Denomination {
 
     public int getTotalRemainingAmount() {
 
-        return  FIVE_HUNDRED * this.getFiveHundreds() + TWO_HUNDRED * this.getTwoHundreds() +
-                ONE_HUNDRED * this.getOneHundreds() + TEN * this.getTens();
+        return  DenominationEnum.FIVE_HUNDRED.getValue() * getFiveHundreds() + DenominationEnum.TWO_HUNDRED.getValue() * this.getTwoHundreds() +
+                DenominationEnum.ONE_HUNDRED.getValue() * getOneHundreds() + DenominationEnum.TEN.getValue() * this.getTens();
     }
 
     public boolean isExceedTotalBalance(int amount) {

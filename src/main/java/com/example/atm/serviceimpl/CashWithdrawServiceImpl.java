@@ -5,8 +5,6 @@ import com.example.atm.model.Denomination;
 import com.example.atm.service.CashWithdrawService;
 import com.example.atm.utils.CashWithdrawUtility;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,7 +75,6 @@ public class CashWithdrawServiceImpl implements CashWithdrawService {
      */
     protected boolean withdrawCashAndUpdateDenomination(final int amount) {
         int amountToWithDraw = amount;
-        Map<Integer, Integer> denominationCount = new HashMap<>();
 
         try {
             for (int i = 0; i < DENOMINATION_NOTES.length && amountToWithDraw != 0; i++) {
@@ -87,25 +84,18 @@ public class CashWithdrawServiceImpl implements CashWithdrawService {
                     if (DENOMINATION_NOTES[i] == CashWithdrawUtility.FIVE_HUNDRED) {
                         var noOfFiveHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
                         denomination.setFiveHundreds(denomination.getFiveHundreds() - noOfFiveHundreds);
-                        denominationCount.put(DENOMINATION_NOTES[i], noOfFiveHundreds);
 
                     } else if (DENOMINATION_NOTES[i] == CashWithdrawUtility.TWO_HUNDRED) {
-
                         var noOfTwoHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
                         denomination.setTwoHundreds(denomination.getTwoHundreds() - noOfTwoHundreds);
-                        denominationCount.put(DENOMINATION_NOTES[i], noOfTwoHundreds);
 
                     } else if (DENOMINATION_NOTES[i] == CashWithdrawUtility.ONE_HUNDRED) {
-
                         var noOfOneHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
                         denomination.setOneHundreds(denomination.getOneHundreds() - noOfOneHundreds);
-                        denominationCount.put(DENOMINATION_NOTES[i], noOfOneHundreds);
 
                     } else if (DENOMINATION_NOTES[i] == CashWithdrawUtility.TEN) {
-
                         var noOfTens = amountToWithDraw / DENOMINATION_NOTES[i];
                         denomination.setTens(denomination.getTens() - noOfTens);
-                        denominationCount.put(DENOMINATION_NOTES[i], noOfTens);
                     }
 
                     amountToWithDraw = amountToWithDraw % DENOMINATION_NOTES[i];

@@ -1,6 +1,5 @@
 package com.example.atm.model;
 
-import com.example.atm.serviceimpl.CashWithdrawServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
