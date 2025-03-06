@@ -2,6 +2,7 @@ package com.example.atm.serviceimpl;
 
 import com.example.atm.model.Denomination;
 
+import com.example.atm.model.DenominationEnum;
 import com.example.atm.service.CashWithdrawService;
 import com.example.atm.utils.CashWithdrawUtility;
 
@@ -81,19 +82,19 @@ public class CashWithdrawServiceImpl implements CashWithdrawService {
 
                 if (amountToWithDraw >= DENOMINATION_NOTES[i]) {
 
-                    if (DENOMINATION_NOTES[i] == CashWithdrawUtility.FIVE_HUNDRED) {
+                    if (DENOMINATION_NOTES[i] == DenominationEnum.FIVE_HUNDRED.getValue()) {
                         var noOfFiveHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
                         denomination.setFiveHundreds(denomination.getFiveHundreds() - noOfFiveHundreds);
 
-                    } else if (DENOMINATION_NOTES[i] == CashWithdrawUtility.TWO_HUNDRED) {
+                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.TWO_HUNDRED.getValue()) {
                         var noOfTwoHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
                         denomination.setTwoHundreds(denomination.getTwoHundreds() - noOfTwoHundreds);
 
-                    } else if (DENOMINATION_NOTES[i] == CashWithdrawUtility.ONE_HUNDRED) {
+                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.ONE_HUNDRED.getValue()) {
                         var noOfOneHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
                         denomination.setOneHundreds(denomination.getOneHundreds() - noOfOneHundreds);
 
-                    } else if (DENOMINATION_NOTES[i] == CashWithdrawUtility.TEN) {
+                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.TEN.getValue()) {
                         var noOfTens = amountToWithDraw / DENOMINATION_NOTES[i];
                         denomination.setTens(denomination.getTens() - noOfTens);
                     }

@@ -10,14 +10,6 @@ public class CashWithdrawUtility {
 
     public static final int MAX_AMOUNT_TO_WITHDRAW = 25000;
 
-    public static final int FIVE_HUNDRED = 500;
-
-    public static final int TWO_HUNDRED = 200;
-
-    public static final int ONE_HUNDRED = 100;
-
-    public static final int TEN = 10;
-
     /**
      * Checks for max withdrawal Limit of 25000
      *
