@@ -1,5 +1,6 @@
 package com.example.atm;
 
+import com.example.atm.model.Denomination;
 import com.example.atm.service.CashWithdrawService;
 import com.example.atm.serviceimpl.CashWithdrawServiceImpl;
 import com.example.atm.serviceimpl.DenominationServiceImpl;
@@ -20,7 +21,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        CashWithdrawService cashWithdrawService = new CashWithdrawServiceImpl(new DenominationServiceImpl());
+        CashWithdrawService cashWithdrawService = new CashWithdrawServiceImpl(new DenominationServiceImpl(new Denomination()));
 
 
         try (Scanner in = new Scanner(System.in)) {

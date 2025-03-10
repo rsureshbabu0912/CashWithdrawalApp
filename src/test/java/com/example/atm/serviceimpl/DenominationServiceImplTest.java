@@ -1,5 +1,6 @@
 package com.example.atm.serviceimpl;
 
+import com.example.atm.model.Denomination;
 import com.example.atm.service.DenominationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ class DenominationServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        denominationService = new DenominationServiceImpl();
+        denominationService = new DenominationServiceImpl(new Denomination());
 
     }
 

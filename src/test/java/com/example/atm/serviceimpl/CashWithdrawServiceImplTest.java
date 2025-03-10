@@ -1,5 +1,6 @@
 package com.example.atm.serviceimpl;
 
+import com.example.atm.model.Denomination;
 import com.example.atm.service.DenominationService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +17,7 @@ class CashWithdrawServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        cashWithdrawService = new CashWithdrawServiceImpl(new DenominationServiceImpl());
+        cashWithdrawService = new CashWithdrawServiceImpl(new DenominationServiceImpl(new Denomination()));
 
     }
 

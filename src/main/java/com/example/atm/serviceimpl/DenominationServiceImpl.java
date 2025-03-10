@@ -8,7 +8,7 @@ public class DenominationServiceImpl implements DenominationService {
 
     Denomination denomination;
 
-    public DenominationServiceImpl() {
+    public DenominationServiceImpl(final Denomination denomination) {
         this.denomination = new Denomination();
     }
 
