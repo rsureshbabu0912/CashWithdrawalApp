@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
-Junit class for DenominationTest . Contains test methods to verify total remaining denominations available
-and total amount exceed th given input values or not
+Junit class for DenominationTest .
  */
 class DenominationTest {
 
@@ -22,29 +21,21 @@ class DenominationTest {
 
 
     @Test
-    void verifyTotalRemainingAmount() {
+    void verifyInitialAndUpdatedValues() {
         //check against initial values
-        assertEquals(30100, denomination.getTotalRemainingAmount());
+        assertEquals(50, denomination.getFiveHundreds());
+        assertEquals(20, denomination.getTwoHundreds());
+        assertEquals(10, denomination.getOneHundreds());
+        assertEquals(10, denomination.getTens());
         //set new values
         denomination.setFiveHundreds(10);
         denomination.setTwoHundreds(5);
         denomination.setOneHundreds(10);
         denomination.setTens(10);
-        assertEquals(7100, denomination.getTotalRemainingAmount());
-    }
-
-    @Test
-    void isExceedTotalBalance() {
-        //check against initial values
-        assertTrue(denomination.isExceedTotalBalance(30101));
-        assertFalse(denomination.isExceedTotalBalance(30100));
-        //set new Values and verify
-        denomination.setFiveHundreds(10);
-        denomination.setTwoHundreds(5);
-        denomination.setOneHundreds(10);
-        denomination.setTens(10);
-        assertTrue(denomination.isExceedTotalBalance(7101));
-        assertFalse(denomination.isExceedTotalBalance(7100));
+        assertEquals(10, denomination.getFiveHundreds());
+        assertEquals(5, denomination.getTwoHundreds());
+        assertEquals(10, denomination.getOneHundreds());
+        assertEquals(10, denomination.getTens());
     }
 
     @AfterEach

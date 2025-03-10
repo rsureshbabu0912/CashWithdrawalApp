@@ -2,6 +2,7 @@ package com.example.atm;
 
 import com.example.atm.service.CashWithdrawService;
 import com.example.atm.serviceimpl.CashWithdrawServiceImpl;
+import com.example.atm.serviceimpl.DenominationServiceImpl;
 
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -19,7 +20,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        CashWithdrawService cashWithdrawService = new CashWithdrawServiceImpl();
+        CashWithdrawService cashWithdrawService = new CashWithdrawServiceImpl(new DenominationServiceImpl());
 
 
         try (Scanner in = new Scanner(System.in)) {
@@ -31,7 +32,7 @@ public class MainApp {
                     System.out.println("Withdrawal Success");
 
                 } else {
-                    System.out.println("Withdrawal failed. Please Enter valid input amount");
+                    System.out.println("Withdrawal failed . Please check error logs");
                 }
 
             }

@@ -1,11 +1,12 @@
 package com.example.atm.serviceimpl;
 
-import com.example.atm.model.Denomination;
-
 import com.example.atm.model.DenominationEnum;
 import com.example.atm.service.CashWithdrawService;
+import com.example.atm.service.DenominationService;
 import com.example.atm.utils.CashWithdrawUtility;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,14 +22,15 @@ import static com.example.atm.utils.CashWithdrawUtility.DENOMINATION_NOTES;
 public class CashWithdrawServiceImpl implements CashWithdrawService {
     private static final Logger LOGGER = Logger.getLogger(CashWithdrawServiceImpl.class.getName());
 
-    Denomination denomination;
+    DenominationService denominationService;
 
-    public CashWithdrawServiceImpl() {
-        denomination = new Denomination();
+
+    public CashWithdrawServiceImpl(DenominationService denominationService) {
+        this.denominationService = denominationService;
     }
 
-    public Denomination getDenomination() {
-        return this.denomination;
+    DenominationService getDenominationService() {
+        return this.denominationService;
     }
 
     /**
@@ -58,7 +60,7 @@ public class CashWithdrawServiceImpl implements CashWithdrawService {
         //The below code is synchronized so that withdraw function and denomination object can be thread safe
         // when main function executed by multiple threads
         synchronized (this) {
-            if (denomination.isExceedTotalBalance(amount)) {
+            if (denominationService.isExceedTotalBalance(amount)) {
                 LOGGER.log(Level.WARNING, " Withdrawal Amount exceeded available total amount available");
 
                 return isWithDrawSuccess;
@@ -76,37 +78,59 @@ public class CashWithdrawServiceImpl implements CashWithdrawService {
      * @param amount
      * @return Denominations
      */
-    protected boolean withdrawCashAndUpdateDenomination(final int amount) {
+    boolean withdrawCashAndUpdateDenomination(final int amount) {
         int amountToWithDraw = amount;
+        Map<DenominationEnum, Integer> notesSummary = new HashMap<>();
+        notesSummary.put(DenominationEnum.FIVE_HUNDRED, 0);
+        notesSummary.put(DenominationEnum.TWO_HUNDRED, 0);
+        notesSummary.put(DenominationEnum.ONE_HUNDRED, 0);
+        notesSummary.put(DenominationEnum.TEN, 0);
 
         try {
             for (int i = 0; i < DENOMINATION_NOTES.length && amountToWithDraw != 0; i++) {
 
                 if (amountToWithDraw >= DENOMINATION_NOTES[i]) {
 
-                    if (DENOMINATION_NOTES[i] == DenominationEnum.FIVE_HUNDRED.getValue()) {
-                        var noOfFiveHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
-                        denomination.setFiveHundreds(denomination.getFiveHundreds() - noOfFiveHundreds);
+                    if (DENOMINATION_NOTES[i] == DenominationEnum.FIVE_HUNDRED.getValue() && amountToWithDraw >= DenominationEnum.FIVE_HUNDRED.getValue()) {
+                        int noOfFiveHundredsDeducted  = denominationService.dispenseFiveHundreds(amountToWithDraw);
+                        amountToWithDraw = amountToWithDraw - (noOfFiveHundredsDeducted * DenominationEnum.FIVE_HUNDRED.getValue());
+                        notesSummary.put(DenominationEnum.FIVE_HUNDRED, noOfFiveHundredsDeducted);
 
-                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.TWO_HUNDRED.getValue()) {
-                        var noOfTwoHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
-                        denomination.setTwoHundreds(denomination.getTwoHundreds() - noOfTwoHundreds);
+                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.TWO_HUNDRED.getValue() && amountToWithDraw >= DenominationEnum.TWO_HUNDRED.getValue()) {
+                        int noOfTwoHundredsDeducted = denominationService.dispenseTwoHundreds(amountToWithDraw);
+                        amountToWithDraw = amountToWithDraw - (noOfTwoHundredsDeducted * DenominationEnum.TWO_HUNDRED.getValue());
+                        notesSummary.put(DenominationEnum.TWO_HUNDRED, noOfTwoHundredsDeducted);
 
-                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.ONE_HUNDRED.getValue()) {
-                        var noOfOneHundreds = amountToWithDraw / DENOMINATION_NOTES[i];
-                        denomination.setOneHundreds(denomination.getOneHundreds() - noOfOneHundreds);
+                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.ONE_HUNDRED.getValue() && amountToWithDraw >= DenominationEnum.ONE_HUNDRED.getValue()) {
+                        int noOfOneHundredsDeducted = denominationService.dispenseOneHundreds(amountToWithDraw);
+                        amountToWithDraw = amountToWithDraw - (noOfOneHundredsDeducted * DenominationEnum.ONE_HUNDRED.getValue());
+                        notesSummary.put(DenominationEnum.ONE_HUNDRED, noOfOneHundredsDeducted);
 
-                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.TEN.getValue()) {
-                        var noOfTens = amountToWithDraw / DENOMINATION_NOTES[i];
-                        denomination.setTens(denomination.getTens() - noOfTens);
+                    } else if (DENOMINATION_NOTES[i] == DenominationEnum.TEN.getValue() && amountToWithDraw >= DenominationEnum.TEN.getValue()) {
+                        int noOfTensDeducted = denominationService.dispenseTens(amountToWithDraw);
+                        amountToWithDraw = amountToWithDraw - (noOfTensDeducted * DenominationEnum.TEN.getValue());
+                        notesSummary.put(DenominationEnum.TEN, noOfTensDeducted);
                     }
 
-                    amountToWithDraw = amountToWithDraw % DENOMINATION_NOTES[i];
                 }
             }
 
-            LOGGER.log(Level.INFO, "Balance Total amount remaining:" + denomination.getTotalRemainingAmount());
 
+            System.out.println("No of 500s deducted : " + notesSummary.get(DenominationEnum.FIVE_HUNDRED));
+            System.out.println("No of 200s deducted : " + notesSummary.get(DenominationEnum.TWO_HUNDRED));
+            System.out.println("No of 100s deducted : " + notesSummary.get(DenominationEnum.ONE_HUNDRED));
+            System.out.println("No of 10s deducted : " + notesSummary.get(DenominationEnum.TEN));
+
+            System.out.println("**********************************");
+
+            System.out.println("No of 500s remaining: " + denominationService.getDenomination().getFiveHundreds());
+            System.out.println("No of 200s remaining: " + denominationService.getDenomination().getTwoHundreds());
+            System.out.println("No of 100s remaining: " + denominationService.getDenomination().getOneHundreds());
+            System.out.println("No of 10s remaining: " + denominationService.getDenomination().getTens());
+
+
+
+            LOGGER.log(Level.INFO, "Balance Total amount remaining:" + denominationService.getTotalRemainingAmount());
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Cash Withdraw failed with:" + ex.getMessage());
             return false;

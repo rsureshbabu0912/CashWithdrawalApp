@@ -51,17 +51,6 @@ public class Denomination {
         this.tens = tens;
     }
 
-    public int getTotalRemainingAmount() {
-
-        return  DenominationEnum.FIVE_HUNDRED.getValue() * getFiveHundreds() + DenominationEnum.TWO_HUNDRED.getValue() * this.getTwoHundreds() +
-                DenominationEnum.ONE_HUNDRED.getValue() * getOneHundreds() + DenominationEnum.TEN.getValue() * this.getTens();
-    }
-
-    public boolean isExceedTotalBalance(int amount) {
-
-         return  amount > getTotalRemainingAmount();
-    }
-
     @Override
     public String toString() {
         return "Denominations{" +

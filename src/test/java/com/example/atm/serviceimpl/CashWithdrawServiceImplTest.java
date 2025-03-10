@@ -1,5 +1,6 @@
 package com.example.atm.serviceimpl;
 
+import com.example.atm.service.DenominationService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,9 +13,10 @@ Junit test class for CashWithdrawServiceImpl - checks for Cashwithdraw and denom
 class CashWithdrawServiceImplTest {
     CashWithdrawServiceImpl cashWithdrawService = null;
 
+
     @BeforeEach
     void setUp() {
-        cashWithdrawService = new CashWithdrawServiceImpl();
+        cashWithdrawService = new CashWithdrawServiceImpl(new DenominationServiceImpl());
 
     }
 
@@ -41,16 +43,16 @@ class CashWithdrawServiceImplTest {
     */
     @Test
     void withdrawCashAndUpdateDenomination_500_And_200() {
-        assertEquals(50, cashWithdrawService.getDenomination().getFiveHundreds());
-        assertEquals(20, cashWithdrawService.getDenomination().getTwoHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getOneHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getTens());
+        assertEquals(50, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(20, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getTens());
         assertTrue(cashWithdrawService.withdrawCashAndUpdateDenomination(24200));
-        //check for remaining denomination count and total remianing amount
-        assertEquals(2, cashWithdrawService.getDenomination().getFiveHundreds());
-        assertEquals(19, cashWithdrawService.getDenomination().getTwoHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getOneHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getTens());
+        //check for remaining denomination count and total remaining amount
+        assertEquals(2, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(19, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getTens());
 
     }
 
@@ -59,15 +61,15 @@ class CashWithdrawServiceImplTest {
    */
     @Test
     void withdrawCashAndUpdateDenomination_200_And_10() {
-        assertEquals(50, cashWithdrawService.getDenomination().getFiveHundreds());
-        assertEquals(20, cashWithdrawService.getDenomination().getTwoHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getOneHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getTens());
+        assertEquals(50, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(20, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getTens());
         assertTrue(cashWithdrawService.withdrawCashAndUpdateDenomination(450));
-        assertEquals(50, cashWithdrawService.getDenomination().getFiveHundreds());
-        assertEquals(18, cashWithdrawService.getDenomination().getTwoHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getOneHundreds());
-        assertEquals(5, cashWithdrawService.getDenomination().getTens());
+        assertEquals(50, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(18, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(5, cashWithdrawService.getDenominationService().getDenomination().getTens());
 
     }
 
@@ -76,15 +78,15 @@ class CashWithdrawServiceImplTest {
    */
     @Test
     void withdrawCashAndUpdateDenomination_100_And_10() {
-        assertEquals(50, cashWithdrawService.getDenomination().getFiveHundreds());
-        assertEquals(20, cashWithdrawService.getDenomination().getTwoHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getOneHundreds());
-        assertEquals(10, cashWithdrawService.getDenomination().getTens());
+        assertEquals(50, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(20, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getTens());
         assertTrue(cashWithdrawService.withdrawCashAndUpdateDenomination(150));
-        assertEquals(50, cashWithdrawService.getDenomination().getFiveHundreds());
-        assertEquals(20, cashWithdrawService.getDenomination().getTwoHundreds());
-        assertEquals(9, cashWithdrawService.getDenomination().getOneHundreds());
-        assertEquals(5, cashWithdrawService.getDenomination().getTens());
+        assertEquals(50, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(20, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(9, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(5, cashWithdrawService.getDenominationService().getDenomination().getTens());
 
     }
     /**
@@ -101,7 +103,7 @@ class CashWithdrawServiceImplTest {
         user3.start();
         //Giving enough time to Threads to finish
         Thread.sleep(15000);
-        assertEquals(16900, cashWithdrawService.getDenomination().getTotalRemainingAmount());
+        assertEquals(16900, cashWithdrawService.getDenominationService().getTotalRemainingAmount());
     }
 
 
