@@ -53,6 +53,15 @@ class CashWithdrawServiceImplTest {
         assertEquals(19, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
         assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
         assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getTens());
+        assertEquals(5900, cashWithdrawService.getDenominationService().getTotalRemainingAmount());
+
+        //second iteration and validate the remaining denomonation count
+        assertTrue(cashWithdrawService.withdrawCashAndUpdateDenomination(5000));
+        assertEquals(0, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(0, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(8, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getTens());
+        assertEquals(900, cashWithdrawService.getDenominationService().getTotalRemainingAmount());
 
     }
 
@@ -70,7 +79,14 @@ class CashWithdrawServiceImplTest {
         assertEquals(18, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
         assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
         assertEquals(5, cashWithdrawService.getDenominationService().getDenomination().getTens());
-
+        assertEquals(29650, cashWithdrawService.getDenominationService().getTotalRemainingAmount());
+        //second iteration and validate the remaining denomonation count
+        assertTrue(cashWithdrawService.withdrawCashAndUpdateDenomination(410));
+        assertEquals(50, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(16, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(10, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(4, cashWithdrawService.getDenominationService().getDenomination().getTens());
+        assertEquals(29240, cashWithdrawService.getDenominationService().getTotalRemainingAmount());
     }
 
     /*
@@ -87,7 +103,14 @@ class CashWithdrawServiceImplTest {
         assertEquals(20, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
         assertEquals(9, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
         assertEquals(5, cashWithdrawService.getDenominationService().getDenomination().getTens());
-
+        assertEquals(29950, cashWithdrawService.getDenominationService().getTotalRemainingAmount());
+        //second iteration and validate the remaining denomonation count
+        assertTrue(cashWithdrawService.withdrawCashAndUpdateDenomination(110));
+        assertEquals(50, cashWithdrawService.getDenominationService().getDenomination().getFiveHundreds());
+        assertEquals(20, cashWithdrawService.getDenominationService().getDenomination().getTwoHundreds());
+        assertEquals(8, cashWithdrawService.getDenominationService().getDenomination().getOneHundreds());
+        assertEquals(4, cashWithdrawService.getDenominationService().getDenomination().getTens());
+        assertEquals(29840, cashWithdrawService.getDenominationService().getTotalRemainingAmount());
     }
     /**
      * Checks for concurrent  users test
@@ -102,7 +125,7 @@ class CashWithdrawServiceImplTest {
         user2.start();
         user3.start();
         //Giving enough time to Threads to finish
-        Thread.sleep(15000);
+        Thread.sleep(6000);
         assertEquals(16900, cashWithdrawService.getDenominationService().getTotalRemainingAmount());
     }
 

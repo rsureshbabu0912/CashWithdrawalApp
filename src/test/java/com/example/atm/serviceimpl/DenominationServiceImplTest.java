@@ -17,17 +17,17 @@ class DenominationServiceImplTest {
     }
 
     @Test
-    void dispenseFiveHundredsFiveHundreds() {
+    void dispenseFiveHundreds() {
         //first withdrawal
         int noOfFiveHundredsDeducted = denominationService.dispenseFiveHundreds(14100);
         assertEquals(28, noOfFiveHundredsDeducted);
-        //No five hundreds remaining
+        //No of five hundreds remaining
         assertEquals(22, denominationService.getDenomination().getFiveHundreds());
         assertEquals(16100, denominationService.getTotalRemainingAmount());
         //second withdrawal
         noOfFiveHundredsDeducted = denominationService.dispenseFiveHundreds(10000);
         assertEquals(20, noOfFiveHundredsDeducted);
-        //No five hundreds remaining
+        //No of five hundreds remaining
         assertEquals(2, denominationService.getDenomination().getFiveHundreds());
 
     }
@@ -44,7 +44,7 @@ class DenominationServiceImplTest {
         //first withdrawal
         int noOfTwoHundredsDeducted = denominationService.dispenseTwoHundreds(3000);
         assertEquals(15, noOfTwoHundredsDeducted);
-        //No two  hundreds remaining
+        //No of two  hundreds remaining
         assertEquals(5, denominationService.getDenomination().getTwoHundreds());
         assertEquals(27100, denominationService.getTotalRemainingAmount());
         //second withdrawal
@@ -52,14 +52,23 @@ class DenominationServiceImplTest {
         assertEquals(5, noOfTwoHundredsDeducted);
         //No two  hundreds remaining
         assertEquals(0, denominationService.getDenomination().getTwoHundreds());
+        assertEquals(26100, denominationService.getTotalRemainingAmount());
     }
 
 
     @Test
     void dispenseOneHundreds() {
-        denominationService.dispenseOneHundreds(400);
+        //first withdrawal
+        int noOfOneHundredsDeducted = denominationService.dispenseOneHundreds(410);
+
+        //No of One hundreds remaining
         assertEquals(6, denominationService.getDenomination().getOneHundreds());
         assertEquals(29700, denominationService.getTotalRemainingAmount());
+        //second withdrawal
+        noOfOneHundredsDeducted = denominationService.dispenseOneHundreds(200);
+        assertEquals(2, noOfOneHundredsDeducted);
+        assertEquals(29500, denominationService.getTotalRemainingAmount());
+
     }
 
     @Test
