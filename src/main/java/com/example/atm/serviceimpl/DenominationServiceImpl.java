@@ -22,7 +22,7 @@ public class DenominationServiceImpl implements DenominationService {
         int noOfFiveHundreds = amountToWithDraw / DenominationEnum.FIVE_HUNDRED.getValue();
         int noOfFiveHundredDeducted = 0;
 
-        //no of five hundreds consumed
+        //logic to calculate available 500s and update the remaining
 
         if (denomination.getFiveHundreds() > 0) {
             if (denomination.getFiveHundreds() >= noOfFiveHundreds) {
@@ -42,7 +42,7 @@ public class DenominationServiceImpl implements DenominationService {
         int noOfTwoHundreds = amountToWithDraw / DenominationEnum.TWO_HUNDRED.getValue();
         int noOfTwoHundredDeducted = 0;
 
-        //no of five hundreds consumed
+        //logic to calculate available 200s and update the remaining
 
         if (denomination.getTwoHundreds() > 0) {
             if (denomination.getTwoHundreds() >= noOfTwoHundreds) {
@@ -62,7 +62,7 @@ public class DenominationServiceImpl implements DenominationService {
         int noOfOneHundreds = amountToWithDraw / DenominationEnum.ONE_HUNDRED.getValue();
         int noOfOneHundredDeducted = 0;
 
-        //no of five hundreds consumed
+        //logic to calculate available 100s and update the remaining
 
         if (denomination.getOneHundreds() > 0) {
             if (denomination.getOneHundreds() >= noOfOneHundreds) {
@@ -82,7 +82,7 @@ public class DenominationServiceImpl implements DenominationService {
         int noOfTens = amountToWithDraw / DenominationEnum.TEN.getValue();
         int noOfTenDeducted = 0;
 
-        //no of five hundreds consumed
+        //logic to calculate available 10s and update the remaining
 
         if (denomination.getOneHundreds() > 0) {
             if (denomination.getTens() >= noOfTens) {
