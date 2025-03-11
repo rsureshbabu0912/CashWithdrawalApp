@@ -128,6 +128,8 @@ public class CashWithdrawServiceImpl implements CashWithdrawService {
             System.out.println("No of 100s remaining: " + denominationService.getDenomination().getOneHundreds());
             System.out.println("No of 10s remaining: " + denominationService.getDenomination().getTens());
 
+            System.out.println("Total remaining amount: " + denominationService.getTotalRemainingAmount());
+
 
 
             LOGGER.log(Level.INFO, "Balance Total amount remaining:" + denominationService.getTotalRemainingAmount());

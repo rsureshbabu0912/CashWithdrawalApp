@@ -29,7 +29,7 @@ public class DenominationServiceImpl implements DenominationService {
                 noOfFiveHundredDeducted = noOfFiveHundreds;
                 denomination.setFiveHundreds(denomination.getFiveHundreds() - noOfFiveHundreds);
             } else {
-                noOfFiveHundredDeducted = noOfFiveHundreds - Math.abs(denomination.getFiveHundreds() - noOfFiveHundreds);
+                noOfFiveHundredDeducted = denomination.getFiveHundreds();
                 denomination.setFiveHundreds(denomination.getFiveHundreds() - noOfFiveHundredDeducted);
             }
 
@@ -49,7 +49,7 @@ public class DenominationServiceImpl implements DenominationService {
                 noOfTwoHundredDeducted = noOfTwoHundreds;
                 denomination.setTwoHundreds(denomination.getTwoHundreds() - noOfTwoHundreds);
             } else {
-                noOfTwoHundredDeducted = noOfTwoHundreds - Math.abs(denomination.getTwoHundreds() - noOfTwoHundreds);
+                noOfTwoHundredDeducted = denomination.getTwoHundreds();
                 denomination.setTwoHundreds(denomination.getTwoHundreds() - noOfTwoHundredDeducted);
             }
 
@@ -69,7 +69,7 @@ public class DenominationServiceImpl implements DenominationService {
                 noOfOneHundredDeducted = noOfOneHundreds;
                 denomination.setOneHundreds(denomination.getOneHundreds() - noOfOneHundreds);
             } else {
-                noOfOneHundredDeducted = noOfOneHundreds - Math.abs(denomination.getOneHundreds() - noOfOneHundreds);
+                noOfOneHundredDeducted = denomination.getOneHundreds();
                 denomination.setOneHundreds(denomination.getOneHundreds() - noOfOneHundredDeducted);
             }
 
@@ -89,7 +89,7 @@ public class DenominationServiceImpl implements DenominationService {
                 noOfTenDeducted = noOfTens;
                 denomination.setTens(denomination.getTens() - noOfTens);
             } else {
-                noOfTenDeducted = noOfTens - Math.abs(denomination.getTens() - noOfTens);
+                noOfTenDeducted = denomination.getTens();
                 denomination.setTens(denomination.getTens() - noOfTenDeducted);
             }
 
